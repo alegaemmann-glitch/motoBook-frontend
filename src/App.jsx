@@ -30,6 +30,8 @@ import RiderLoginPage from "./pages/rider/RiderLoginPage";
 import "./App.css";
 
 function App() {
+  const api = import.meta.env.VITE_USER_SERVICE_URL;
+  console.log(api);
   return (
     <Router>
       <Routes>

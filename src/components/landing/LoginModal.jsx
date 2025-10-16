@@ -29,7 +29,7 @@ function LoginModal({ onClose, mode: initialMode, onShowTerms }) {
     "",
   ]);
 
-  const api = import.meta.env.REACT_APP_USER_SERVICE_URL;
+  const api = import.meta.env.VITE_USER_SERVICE_URL;
 
   const navigate = useNavigate();
   const inputsRef = useRef([]);

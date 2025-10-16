@@ -12,7 +12,7 @@ export const getUserPreferences = async (userId) => {
 };
 
 export const saveUserPreferences = async (userId, categories) => {
-  const api = import.meta.env.REACT_APP_USER_SERVICE_URL;
+  const api = import.meta.env.VITE_USER_SERVICE_URL;
 
   await axios.post(`${api}/api/auth/preferences`, {
     userId,

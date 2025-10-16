@@ -9,7 +9,7 @@ const RiderLoginPage = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
-  const api = import.meta.env.REACT_APP_USER_SERVICE_URL;
+  const api = import.meta.env.VITE_USER_SERVICE_URL;
 
   const handleLogin = async (e) => {
     e.preventDefault(); // ✅ Add this line
