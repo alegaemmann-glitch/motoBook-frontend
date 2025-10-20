@@ -8,11 +8,13 @@ const MenuPage = ({ businessId, businessName, onBack, onAddToCart }) => {
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [searchQuery, setSearchQuery] = useState("");
 
+  const businessServiceBaseURL = import.meta.env.VITE_BUSINESS_SERVICE_URL;
+
   useEffect(() => {
     const fetchMenu = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:3003/api/business/menu-items/${businessId}`
+          `${businessServiceBaseURL}/api/business/menu-items/${businessId}`
           // `/api/business/menu-items/${businessId}`
         );
         setMenuItems(res.data);

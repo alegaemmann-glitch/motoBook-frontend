@@ -1,8 +1,10 @@
 // src/utils/api.js
 import axios from "axios";
 
+const businessServiceBaseURL = import.meta.env.VITE_BUSINESS_SERVICE_URL;
+
 const API = axios.create({
-  baseURL: "http://localhost:3003/api",
+  baseURL: `${businessServiceBaseURL}/api`,
   // "/api"
   headers: {
     "Content-Type": "application/json",

@@ -9,6 +9,8 @@ import MenuPage from "../../components/customer/MenuPage.jsx";
 import CartPanel from "../../components/customer/CartPanel.jsx";
 import ReviewPaymentAddressModal from "../../components/customer/ReviewPaymentAddressModal";
 
+const businessServiceBaseURL = import.meta.env.VITE_BUSINESS_SERVICE_URL;
+
 const CustomerHome = () => {
   const { user } = useContext(AuthContext);
   const [categoryModalOpen, setCategoryModalOpen] = useState(false);
@@ -30,7 +32,7 @@ const CustomerHome = () => {
     try {
       const res = await axios.get(
         // `/api/business/all-restaurants`
-        `http://localhost:3003/api/business/all-restaurants`
+        `${businessServiceBaseURL}/api/business/all-restaurants`
       );
       return res.data;
     } catch (error) {
@@ -47,7 +49,7 @@ const CustomerHome = () => {
     try {
       const res = await axios.get(
         // `/api/business/recommended/${userId}`
-        `http://localhost:3003/api/business/recommended/${userId}`
+        `${businessServiceBaseURL}/api/business/recommended/${userId}`
       );
       return res.data;
     } catch (error) {

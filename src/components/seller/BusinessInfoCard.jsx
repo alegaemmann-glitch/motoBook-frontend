@@ -12,6 +12,8 @@ const BusinessInfoCard = () => {
   const [loading, setLoading] = useState(true);
   const [updating, setUpdating] = useState(false);
 
+  const businessServiceBaseURL = import.meta.env.VITE_BUSINESS_SERVICE_URL;
+
   const toggleIsOpen = async () => {
     if (updating) return;
 
@@ -21,7 +23,7 @@ const BusinessInfoCard = () => {
     try {
       await axios.put(
         // `/api/business/${business.id}/open`,
-        `http://localhost:3003/api/business/${business.id}/open`,
+        `${businessServiceBaseURL}/api/business/${business.id}/open`,
         {
           isOpen: newIsOpen,
         }
@@ -44,7 +46,7 @@ const BusinessInfoCard = () => {
     try {
       const res = await axios.put(
         // `/api/business/logo/${user.id}`,
-        `http://localhost:3003/api/business/logo/${user.id}`,
+        `${businessServiceBaseURL}/api/business/logo/${user.id}`,
         formData,
         {
           headers: { "Content-Type": "multipart/form-data" },
@@ -61,7 +63,7 @@ const BusinessInfoCard = () => {
       try {
         const res = await axios.get(
           // `/api/business/${user.id}`
-          `http://localhost:3003/api/business/${user.id}`
+          `${businessServiceBaseURL}/api/business/${user.id}`
         );
         setBusiness(res.data);
       } catch (error) {

@@ -7,6 +7,8 @@ import "../../styles/seller/SellerAccessPage.css";
 import Flag from "react-world-flags";
 import CategorySelectorModal from "../../components/seller/CategorySelectorModal";
 
+const businessServiceBaseURL = import.meta.env.VITE_BUSINESS_SERVICE_URL;
+
 const SellerAccessPage = () => {
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [categoryModalOpen, setCategoryModalOpen] = useState(false);
@@ -127,7 +129,7 @@ const SellerAccessPage = () => {
 
       await axios.post(
         // "/api/business/add",
-        "http://localhost:3003/api/business/add",
+        `${businessServiceBaseURL}/api/business/add`,
         {
           businessName: formData.businessName,
           fullName: formData.fullName,

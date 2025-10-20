@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import axios from "axios"; // ✅ Imported axios
 import "../../styles/seller/ManageMenusPage.css";
 
+const businessServiceBaseURL = import.meta.env.VITE_BUSINESS_SERVICE_URL;
+
 const ManageMenusPage = () => {
   const [categories, setCategories] = useState([]);
   const [productsByCategory, setProductsByCategory] = useState({});
@@ -26,7 +28,7 @@ const ManageMenusPage = () => {
 
         const businessResponse = await axios.get(
           // `/api/business/${userId}`,
-          `http://localhost:3003/api/business/${userId}`,
+          `${businessServiceBaseURL}/api/business/${userId}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -39,7 +41,7 @@ const ManageMenusPage = () => {
 
         const menuResponse = await axios.get(
           // `/api/business/menu-items/${businessId}`,
-          `http://localhost:3003/api/business/menu-items/${businessId}`,
+          `${businessServiceBaseURL}/api/business/menu-items/${businessId}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -129,7 +131,7 @@ const ManageMenusPage = () => {
 
       const response = await axios.post(
         // "/api/business/menu/add-items",
-        "http://localhost:3003/api/business/menu/add-items",
+        `${businessServiceBaseURL}/api/business/menu/add-items`,
         formData,
         {
           headers: {
