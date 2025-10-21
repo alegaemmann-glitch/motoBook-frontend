@@ -12,7 +12,7 @@ const RiderDashboard = () => {
 
   //ORDER SERVICE DOMAIN
   const orderServiceBaseURL =
-    import.meta.env.VITE_BUSINESS_SERVICE_URL || "http://localhost:3004";
+    import.meta.env.VITE_ORDER_SERVICE_URL || "http://localhost:3004";
 
   const [activeMenu, setActiveMenu] = useState(() => {
     return localStorage.getItem("riderActiveMenu") || "dashboard";

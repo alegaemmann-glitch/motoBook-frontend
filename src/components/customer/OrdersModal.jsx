@@ -12,7 +12,7 @@ import {
 
 function OrdersModal({ onClose, onMarkAllAsRead }) {
   const orderServiceBaseURL =
-    import.meta.env.VITE_BUSINESS_SERVICE_URL || "http://localhost:3004";
+    import.meta.env.VITE_ORDER_SERVICE_URL || "http://localhost:3004";
 
   const [orders, setOrders] = useState([]);
   const [activeTab, setActiveTab] = useState("pending");

@@ -45,7 +45,7 @@ const ReviewPaymentAddressModal = ({
 
   //Order service domain
   const orderServiceBaseURL =
-    import.meta.env.VITE_BUSINESS_SERVICE_URL || "http://localhost:3004";
+    import.meta.env.VITE_ORDER_SERVICE_URL || "http://localhost:3004";
 
   const handleLocationConfirm = (location) => {
     setSelectedLocation(location);
