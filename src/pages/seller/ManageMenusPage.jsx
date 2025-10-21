@@ -2,7 +2,8 @@ import { useState, useEffect } from "react";
 import axios from "axios"; // ✅ Imported axios
 import "../../styles/seller/ManageMenusPage.css";
 
-const businessServiceBaseURL = import.meta.env.VITE_BUSINESS_SERVICE_URL;
+const businessServiceBaseURL =
+  import.meta.env.VITE_BUSINESS_SERVICE_URL || "http://localhost:3003";
 
 const ManageMenusPage = () => {
   const [categories, setCategories] = useState([]);

@@ -9,7 +9,8 @@ const RiderLoginPage = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
-  const api = import.meta.env.VITE_USER_SERVICE_URL;
+  const userServiceBaseURL =
+    import.meta.env.VITE_USER_SERVICE_URL || "http://localhost:3002";
 
   const handleLogin = async (e) => {
     e.preventDefault(); // ✅ Add this line
@@ -17,7 +18,7 @@ const RiderLoginPage = () => {
     try {
       const res = await axios.post(
         // "/api/auth/rider/login",
-        `${api}/api/auth/rider/login`,
+        `${userServiceBaseURL}/api/auth/rider/login`,
         {
           email,
           password,

@@ -11,6 +11,9 @@ import {
 } from "lucide-react";
 
 function OrdersModal({ onClose, onMarkAllAsRead }) {
+  const orderServiceBaseURL =
+    import.meta.env.VITE_BUSINESS_SERVICE_URL || "http://localhost:3004";
+
   const [orders, setOrders] = useState([]);
   const [activeTab, setActiveTab] = useState("pending");
 
@@ -32,7 +35,7 @@ function OrdersModal({ onClose, onMarkAllAsRead }) {
   const cancelOrder = async (orderId) => {
     try {
       await axios.patch(
-        `http://localhost:3004/api/orders/${orderId}/status`,
+        `${orderServiceBaseURL}/api/orders/${orderId}/status`,
         // `/api/orders/${orderId}/status`,
         {
           status: "canceled",
@@ -55,7 +58,7 @@ function OrdersModal({ onClose, onMarkAllAsRead }) {
     const fetchOrders = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:3004/api/orders/all",
+          `${orderServiceBaseURL}/api/orders/all`,
           // "/api/orders/all",
           {
             params: { customerId: user.id },

@@ -9,7 +9,8 @@ import MenuPage from "../../components/customer/MenuPage.jsx";
 import CartPanel from "../../components/customer/CartPanel.jsx";
 import ReviewPaymentAddressModal from "../../components/customer/ReviewPaymentAddressModal";
 
-const businessServiceBaseURL = import.meta.env.VITE_BUSINESS_SERVICE_URL;
+const businessServiceBaseURL =
+  import.meta.env.VITE_BUSINESS_SERVICE_URL || "http://localhost:3003";
 
 const CustomerHome = () => {
   const { user } = useContext(AuthContext);
@@ -26,7 +27,8 @@ const CustomerHome = () => {
 
   const clearCart = () => setCartItems([]);
 
-  const api = import.meta.env.VITE_USER_SERVICE_URL;
+  const userServiceBaseURL =
+    import.meta.env.VITE_USER_SERVICE_URL || "http://localhost:3002";
 
   const fetchAllRestaurants = async () => {
     try {
@@ -60,7 +62,9 @@ const CustomerHome = () => {
 
   const getUserPreferences = async (userId) => {
     try {
-      const res = await axios.get(`${api}/api/auth/preferences/${userId}`);
+      const res = await axios.get(
+        `${userServiceBaseURL}/api/auth/preferences/${userId}`
+      );
       return res.data.preferences || [];
     } catch (error) {
       console.error("Error fetching user preferences:", error);
@@ -71,7 +75,7 @@ const CustomerHome = () => {
   const saveUserPreferences = async (userId, categories) => {
     await axios.post(
       // `/api/auth/preferences`,
-      `${api}/api/auth/preferences`,
+      `${userServiceBaseURL}/api/auth/preferences`,
       {
         userId,
         categories,

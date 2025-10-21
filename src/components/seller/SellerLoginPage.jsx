@@ -14,7 +14,8 @@ const SellerLoginPage = () => {
     phone: "",
   });
 
-  const api = import.meta.env.VITE_USER_SERVICE_URL;
+  const userServiceBaseURL =
+    import.meta.env.VITE_USER_SERVICE_URL || "http://localhost:3002";
 
   const handleChange = (e) => {
     setFormData((prev) => ({
@@ -32,7 +33,7 @@ const SellerLoginPage = () => {
 
     try {
       const response = await axios.post(
-        `${api}/api/auth/login-seller`,
+        `${userServiceBaseURL}/api/auth/login-seller`,
         payload
       );
 

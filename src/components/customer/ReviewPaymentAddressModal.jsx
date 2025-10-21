@@ -43,6 +43,10 @@ const ReviewPaymentAddressModal = ({
     0
   );
 
+  //Order service domain
+  const orderServiceBaseURL =
+    import.meta.env.VITE_BUSINESS_SERVICE_URL || "http://localhost:3004";
+
   const handleLocationConfirm = (location) => {
     setSelectedLocation(location);
     setAddressInput(location.address);
@@ -121,7 +125,7 @@ const ReviewPaymentAddressModal = ({
       };
 
       const response = await axios.post(
-        "http://localhost:3004/api/orders/create",
+        `${orderServiceBaseURL}/api/orders/create`,
         // "/api/orders/create",
         payload
       );

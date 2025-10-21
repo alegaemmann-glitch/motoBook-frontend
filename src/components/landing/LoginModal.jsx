@@ -29,7 +29,8 @@ function LoginModal({ onClose, mode: initialMode, onShowTerms }) {
     "",
   ]);
 
-  const api = import.meta.env.VITE_USER_SERVICE_URL;
+  const userServiceBaseURL =
+    import.meta.env.VITE_USER_SERVICE_URL || "http://localhost:3002";
 
   const navigate = useNavigate();
   const inputsRef = useRef([]);
@@ -55,7 +56,7 @@ function LoginModal({ onClose, mode: initialMode, onShowTerms }) {
     setError("");
     setLoading(true);
     try {
-      const res = await axios.post(`${api}/api/auth/login`, {
+      const res = await axios.post(`${userServiceBaseURL}/api/auth/login`, {
         email,
         password,
       });
@@ -100,14 +101,17 @@ function LoginModal({ onClose, mode: initialMode, onShowTerms }) {
     }
 
     try {
-      const res = await axios.post(`${api}/api/auth/check-email`, {
-        email,
-      });
+      const res = await axios.post(
+        `${userServiceBaseURL}/api/auth/check-email`,
+        {
+          email,
+        }
+      );
 
       if (res.data.exists) {
         setError("Email is already registered. Please login.");
       } else {
-        await axios.post(`${api}/api/auth/register`, {
+        await axios.post(`${userServiceBaseURL}/api/auth/register`, {
           name,
           email,
           password,
@@ -115,9 +119,12 @@ function LoginModal({ onClose, mode: initialMode, onShowTerms }) {
           role: "Customer",
         });
 
-        await axios.post(`${api}/api/auth/send-verification-code`, {
-          email,
-        });
+        await axios.post(
+          `${userServiceBaseURL}/api/auth/send-verification-code`,
+          {
+            email,
+          }
+        );
 
         setCountdown(30);
         setView("verifyCode");
@@ -137,10 +144,13 @@ function LoginModal({ onClose, mode: initialMode, onShowTerms }) {
     const code = verificationCode.join("");
 
     try {
-      const res = await axios.post(`${api}/api/auth/verify-code`, {
-        email,
-        code,
-      });
+      const res = await axios.post(
+        `${userServiceBaseURL}/api/auth/verify-code`,
+        {
+          email,
+          code,
+        }
+      );
 
       if (res.data.success) {
         alert("Email verified successfully! You can now log in.");
@@ -161,9 +171,12 @@ function LoginModal({ onClose, mode: initialMode, onShowTerms }) {
     setError("");
     setLoading(true);
     try {
-      await axios.post(`${api}/api/auth/send-verification-code`, {
-        email,
-      });
+      await axios.post(
+        `${userServiceBaseURL}/api/auth/send-verification-code`,
+        {
+          email,
+        }
+      );
       setCountdown(30);
     } catch (err) {
       setError("Failed to resend verification code.", err);
@@ -252,7 +265,7 @@ function LoginModal({ onClose, mode: initialMode, onShowTerms }) {
                   setLoading(true);
                   try {
                     const res = await axios.post(
-                      `${api}/api/auth/google-login`,
+                      `${userServiceBaseURL}/api/auth/google-login`,
                       {
                         credential: credentialResponse.credential,
                       }
@@ -473,11 +486,14 @@ function LoginModal({ onClose, mode: initialMode, onShowTerms }) {
                 try {
                   const numericPhone = googlePhone.replace(/\D/g, "");
                   const fullPhone = `+63${numericPhone}`;
-                  const res = await axios.post(`${api}/api/auth/google-login`, {
-                    credential: googleCredential,
-                    password,
-                    phone: fullPhone,
-                  });
+                  const res = await axios.post(
+                    `${userServiceBaseURL}/api/auth/google-login`,
+                    {
+                      credential: googleCredential,
+                      password,
+                      phone: fullPhone,
+                    }
+                  );
 
                   const { token, user } = res.data;
                   localStorage.setItem("token", token);

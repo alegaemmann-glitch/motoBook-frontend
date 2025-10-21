@@ -22,13 +22,17 @@ function Header({ cartItems, onToggleCart }) {
   const [hasUnreadOrders, setHasUnreadOrders] = useState(false);
   const [showTerms, setShowTerms] = useState(false);
 
+  //ORDER SERVICE DOMAIN
+  const orderServiceBaseURL =
+    import.meta.env.VITE_BUSINESS_SERVICE_URL || "http://localhost:3004";
+
   useEffect(() => {
     const fetchOrders = async () => {
       if (!user?.id) return;
 
       try {
         const res = await axios.get(
-          "http://localhost:3004/api/orders/all",
+          `${orderServiceBaseURL}/api/orders/all`,
           // "/api/orders/all",
           {
             params: { customerId: user.id },

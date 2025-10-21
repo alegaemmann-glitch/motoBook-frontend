@@ -10,6 +10,10 @@ const RiderDashboard = () => {
   const [acceptedOrders, setAcceptedOrders] = useState([]);
   const [completedOrders, setCompletedOrders] = useState([]);
 
+  //ORDER SERVICE DOMAIN
+  const orderServiceBaseURL =
+    import.meta.env.VITE_BUSINESS_SERVICE_URL || "http://localhost:3004";
+
   const [activeMenu, setActiveMenu] = useState(() => {
     return localStorage.getItem("riderActiveMenu") || "dashboard";
   });
@@ -24,8 +28,7 @@ const RiderDashboard = () => {
     const fetchPendingOrders = async () => {
       try {
         const res = await axios.get(
-          // "/api/orders/pending"
-          "http://localhost:3004/api/orders/pending"
+          `${orderServiceBaseURL}/api/orders/pending`
         );
         setPendingOrders(res.data);
       } catch (err) {
@@ -41,8 +44,7 @@ const RiderDashboard = () => {
       const fetchAcceptedOrders = async () => {
         try {
           const res = await axios.get(
-            // `/api/orders/accepted?riderId=${user.id}`
-            `http://localhost:3004/api/orders/accepted?riderId=${user.id}`
+            `${orderServiceBaseURL}/api/orders/accepted?riderId=${user.id}`
           );
           const ongoing = res.data.filter(
             (order) => order.status !== "completed"
@@ -63,14 +65,10 @@ const RiderDashboard = () => {
 
   const handleAcceptOrder = async (orderId) => {
     try {
-      await axios.patch(
-        // `/api/orders/${orderId}/assign`,
-        `http://localhost:3004/api/orders/${orderId}/assign`,
-        {
-          riderId: user.id,
-          riderName: user.name,
-        }
-      );
+      await axios.patch(`${orderServiceBaseURL}/api/orders/${orderId}/assign`, {
+        riderId: user.id,
+        riderName: user.name,
+      });
 
       setPendingOrders((prev) => prev.filter((order) => order.id !== orderId));
     } catch (error) {
@@ -82,8 +80,7 @@ const RiderDashboard = () => {
   const handleCompleteOrder = async (orderId) => {
     try {
       await axios.patch(
-        // `/api/orders/${orderId}/complete`
-        `http://localhost:3004/api/orders/${orderId}/complete`
+        `${orderServiceBaseURL}/api/orders/${orderId}/complete`
       );
       const orderToMove = acceptedOrders.find((order) => order.id === orderId);
 

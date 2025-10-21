@@ -8,7 +8,8 @@ const MenuPage = ({ businessId, businessName, onBack, onAddToCart }) => {
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [searchQuery, setSearchQuery] = useState("");
 
-  const businessServiceBaseURL = import.meta.env.VITE_BUSINESS_SERVICE_URL;
+  const businessServiceBaseURL =
+    import.meta.env.VITE_BUSINESS_SERVICE_URL || "http://localhost:3003";
 
   useEffect(() => {
     const fetchMenu = async () => {

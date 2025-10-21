@@ -1,7 +1,8 @@
 // src/utils/api.js
 import axios from "axios";
 
-const businessServiceBaseURL = import.meta.env.VITE_BUSINESS_SERVICE_URL;
+const businessServiceBaseURL =
+  import.meta.env.VITE_BUSINESS_SERVICE_URL || "http://localhost:3003";
 
 const API = axios.create({
   baseURL: `${businessServiceBaseURL}/api`,

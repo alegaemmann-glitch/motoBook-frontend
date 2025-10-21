@@ -12,7 +12,8 @@ const BusinessInfoCard = () => {
   const [loading, setLoading] = useState(true);
   const [updating, setUpdating] = useState(false);
 
-  const businessServiceBaseURL = import.meta.env.VITE_BUSINESS_SERVICE_URL;
+  const businessServiceBaseURL =
+    import.meta.env.VITE_BUSINESS_SERVICE_URL || "http://localhost:3003";
 
   const toggleIsOpen = async () => {
     if (updating) return;

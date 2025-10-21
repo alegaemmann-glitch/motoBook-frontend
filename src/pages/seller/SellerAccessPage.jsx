@@ -7,8 +7,6 @@ import "../../styles/seller/SellerAccessPage.css";
 import Flag from "react-world-flags";
 import CategorySelectorModal from "../../components/seller/CategorySelectorModal";
 
-const businessServiceBaseURL = import.meta.env.VITE_BUSINESS_SERVICE_URL;
-
 const SellerAccessPage = () => {
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [categoryModalOpen, setCategoryModalOpen] = useState(false);
@@ -20,7 +18,12 @@ const SellerAccessPage = () => {
     address: "",
   });
 
-  const api = import.meta.env.VITE_USER_SERVICE_URL;
+  const userServiceBaseURL =
+    import.meta.env.VITE_USER_SERVICE_URL || "http://localhost:3002";
+  const businessServiceBaseURL =
+    import.meta.env.VITE_BUSINESS_SERVICE_URL || "http://localhost:3003";
+
+  console.log(businessServiceBaseURL);
 
   const handleCategoryConfirm = (categories) => {
     setSelectedCategories(categories);
@@ -117,18 +120,20 @@ const SellerAccessPage = () => {
     const rawPhone = formData.phone.replace(/\s/g, "");
 
     try {
-      const userRes = await axios.post(`${api}/api/auth/register-seller`, {
-        name: formData.fullName,
-        email: formData.email,
-        password: formData.password,
-        phone: `0${rawPhone}`, // Add leading 0 for local format
-        role: "Seller",
-      });
+      const userRes = await axios.post(
+        `${userServiceBaseURL}/api/auth/register-seller`,
+        {
+          name: formData.fullName,
+          email: formData.email,
+          password: formData.password,
+          phone: `0${rawPhone}`, // Add leading 0 for local format
+          role: "Seller",
+        }
+      );
 
       const { token, user } = userRes.data;
 
       await axios.post(
-        // "/api/business/add",
         `${businessServiceBaseURL}/api/business/add`,
         {
           businessName: formData.businessName,

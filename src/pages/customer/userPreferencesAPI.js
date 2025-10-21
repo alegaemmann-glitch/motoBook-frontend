@@ -12,9 +12,10 @@ export const getUserPreferences = async (userId) => {
 };
 
 export const saveUserPreferences = async (userId, categories) => {
-  const api = import.meta.env.VITE_USER_SERVICE_URL;
+  const userServiceBaseURL =
+    import.meta.env.VITE_USER_SERVICE_URL || "http://localhost:3002";
 
-  await axios.post(`${api}/api/auth/preferences`, {
+  await axios.post(`${userServiceBaseURL}/api/auth/preferences`, {
     userId,
     categories,
   });
