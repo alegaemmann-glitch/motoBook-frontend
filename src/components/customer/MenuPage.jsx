@@ -78,16 +78,7 @@ const MenuPage = ({ businessId, businessName, onBack, onAddToCart }) => {
       <div className="menu-grid">
         {filteredItems.map((item) => (
           <div key={item.id} className="menu-item-card">
-            {item.image && (
-              <img
-                src={
-                  item.image.startsWith("https")
-                    ? item.image
-                    : `${businessServiceBaseURL}/${item.image}`
-                }
-                alt={item.productName}
-              />
-            )}
+            {item.image && <img src={item.image} alt={item.productName} />}
             <h4>{item.productName}</h4>
             <p>{item.description}</p>
             <strong>₱{item.price}</strong>
