@@ -8,13 +8,15 @@ function BusinessManagement() {
   const [loading, setLoading] = useState(false);
   const [statusUpdating, setStatusUpdating] = useState(null); // Track business ID being updated
 
+  const businessServiceBaseURL =
+    import.meta.env.VITE_BUSINESS_SERVICE_URL || "http://localhost:3003";
+
   const fetchBusinesses = async () => {
     setLoading(true);
     setError("");
     try {
       const res = await axios.get(
-        // "/admin/business"
-        "http://localhost:3001/admin/business"
+        `${businessServiceBaseURL}/api/business/business`
       );
       setBusinesses(Array.isArray(res.data) ? res.data : []);
     } catch (err) {
@@ -33,7 +35,7 @@ function BusinessManagement() {
     try {
       await axios.put(
         // `/admin/business/${businessId}/status`
-        `http://localhost:3001/admin/business/${businessId}/status`,
+        `${businessServiceBaseURL}/api/business/business/${businessId}/status`,
         {
           status: newStatus,
         }

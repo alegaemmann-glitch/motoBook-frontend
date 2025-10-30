@@ -1,7 +1,10 @@
+const adminServiceBaseURL =
+  import.meta.env.VITE_ADMIN_SERVICE_URL || "http://localhost:3001";
+
 export const login = async (username, password) => {
   const response = await fetch(
     // "/admin/login",
-    "http://localhost:3001/admin/login",
+    `${adminServiceBaseURL}/admin/login`,
     {
       method: "POST",
       headers: {

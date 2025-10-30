@@ -24,6 +24,9 @@ const UserProfileModal = ({ isOpen, onClose, user, onEdit, onDelete }) => {
     }
   }, [isOpen]);
 
+  const userServiceBaseURL =
+    import.meta.env.VITE_USER_SERVICE_URL || "http://localhost:3002";
+
   if (!isOpen || !user) return null;
 
   const handleChangePassword = async (e) => {
@@ -38,8 +41,7 @@ const UserProfileModal = ({ isOpen, onClose, user, onEdit, onDelete }) => {
 
     try {
       const res = await axios.put(
-        `http://localhost:3001/admin/users/${user.userid}/password`,
-        // `/admin/users/${user.userid}/password`,
+        `${userServiceBaseURL}/api/auth/users/${user.userid}/password`,
         {
           currentPassword,
           newPassword,

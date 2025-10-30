@@ -29,11 +29,14 @@ const UserManagement = () => {
     fetchUsers();
   }, []);
 
+  const userServiceBaseURL =
+    import.meta.env.VITE_USER_SERVICE_URL || "http://localhost:3002";
+
   const fetchUsers = async () => {
     setLoading(true);
     try {
       const res = await axios.get(
-        "http://localhost:3001/admin/users"
+        `${userServiceBaseURL}/api/auth/users`
         // "/admin/users"
       );
       setUsers(res.data);
@@ -45,8 +48,7 @@ const UserManagement = () => {
   const handleSubmit = async () => {
     try {
       const res = await axios.post(
-        // "/admin/users",
-        "http://localhost:3001/admin/users",
+        `${userServiceBaseURL}/api/auth/users`,
         form
       );
       if (res.data) {
@@ -75,8 +77,7 @@ const UserManagement = () => {
       }
 
       const res = await axios.put(
-        // `/admin/users/${editId}`,
-        `http://localhost:3001/admin/users/${editId}`,
+        `${userServiceBaseURL}/api/auth/users/${editId}`,
         updatedData
       );
 
@@ -100,10 +101,7 @@ const UserManagement = () => {
 
   const handleDelete = async (userid) => {
     try {
-      await axios.delete(
-        `http://localhost:3001/admin/users/${userid}`
-        // `/admin/users/${userid}`
-      );
+      await axios.delete(`${userServiceBaseURL}/api/auth/users/${userid}`);
       setUsers((prev) => prev.filter((user) => user.userid !== userid));
     } catch (err) {
       console.error("Error deleting user:", err);

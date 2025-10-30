@@ -29,12 +29,15 @@ function AdminDashboard() {
     fetchBusinesses(); // NEW: Fetch businesses on mount
   }, []);
 
+  const userServiceBaseURL =
+    import.meta.env.VITE_USER_SERVICE_URL || "http://localhost:3002";
+
+  const businessServiceBaseURL =
+    import.meta.env.VITE_BUSINESS_SERVICE_URL || "http://localhost:3003";
+
   const fetchUsers = async () => {
     try {
-      const res = await axios.get(
-        // "/admin/users"
-        "http://localhost:3001/admin/users"
-      );
+      const res = await axios.get(`${userServiceBaseURL}/api/auth/users`);
       setUsers(res.data);
     } catch (err) {
       console.error("Error fetching users:", err);
@@ -44,8 +47,7 @@ function AdminDashboard() {
   const fetchBusinesses = async () => {
     try {
       const res = await axios.get(
-        // "/admin/business"
-        "http://localhost:3001/admin/business"
+        `${businessServiceBaseURL}/api/business/business`
       );
       setBusinesses(Array.isArray(res.data) ? res.data : []);
     } catch (err) {
