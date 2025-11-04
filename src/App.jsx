@@ -2,6 +2,9 @@ import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import ProtectedRoute from "./components/auth/ProtectedRoute";
 
+//404 Not Found Page
+import NotFound from "./pages/404notfound/NotFound";
+
 // Admin
 import LoginPage from "./pages/admin/LoginPage";
 import AdminDashboard from "./pages/admin/AdminDashboard";
@@ -65,6 +68,8 @@ function App() {
         <Route element={<ProtectedRoute allowedRoles={["Rider"]} />}>
           <Route path="/rider" element={<RiderDashboard />} />
         </Route>
+
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </Router>
   );

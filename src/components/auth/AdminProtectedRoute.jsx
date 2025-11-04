@@ -7,7 +7,7 @@ const AdminProtectedRoute = () => {
   const user = userJson ? JSON.parse(userJson) : null;
 
   if (!user || user.role !== "Admin") {
-    return <Navigate to="/admin/login" replace />;
+    return <Navigate to="/admin" replace />;
   }
 
   return <Outlet />;

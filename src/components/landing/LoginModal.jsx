@@ -84,18 +84,57 @@ function LoginModal({ onClose, mode: initialMode, onShowTerms }) {
     setError("");
     setLoading(true);
 
+    // Email validation
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
       setError("Please enter a valid email address.");
       setLoading(false);
       return;
     }
-    if (!agree) {
-      setError("You must agree to the Privacy Terms and Conditions.");
+
+    // Name validation - should contain at least first and last name
+    const nameParts = name.trim().split(/\s+/);
+    if (name.trim().length < 2) {
+      setError("Please enter your full name.");
+      setLoading(false);
+      return;
+    }
+    if (nameParts.length < 2) {
+      setError("Please enter both first and last name.");
+      setLoading(false);
+      return;
+    }
+    if (!/^[a-zA-Z\s'-]+$/.test(name)) {
+      setError(
+        "Name should only contain letters, spaces, hyphens, and apostrophes."
+      );
+      setLoading(false);
+      return;
+    }
+
+    // Phone validation
+    if (!phone || phone.trim().length < 10) {
+      setError("Please enter a valid phone number.");
+      setLoading(false);
+      return;
+    }
+
+    // Password validation
+    if (password.length < 8) {
+      setError(
+        "Your password is too short. It needs to be at least 8 characters."
+      );
       setLoading(false);
       return;
     }
     if (password !== confirmPassword) {
       setError("Passwords do not match.");
+      setLoading(false);
+      return;
+    }
+
+    // Terms agreement validation
+    if (!agree) {
+      setError("You must agree to the Privacy Terms and Conditions.");
       setLoading(false);
       return;
     }
